@@ -10,6 +10,7 @@ import {
   MergeRequestsTable,
   PipelinesTable,
   MergeRequestStats,
+  ReadMeCard,
 } from '../widgets';
 
 export const GitlabCI = () => (
@@ -24,6 +25,9 @@ export const GitlabCI = () => (
         </Grid>
         <Grid item sm={12} md={6} lg={4}>
           <MergeRequestStats />
+        </Grid>
+        <Grid item sm={12} md={8} lg={8}>
+          <ReadMeCard  maxHeight={450}/>
         </Grid>
         <Grid item md={12}>
           <PipelinesTable />

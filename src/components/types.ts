@@ -4,6 +4,10 @@ export type ContributorData = {
 	avatar_url: string;
 };
 
+export type ReadMeData = {
+	content: string;
+};
+
 export type MergeRequest = {
 	id: string;
 	project_id: string;

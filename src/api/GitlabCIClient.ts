@@ -2,6 +2,7 @@ import {
 	PipelineSummary,
 	GitlabCIApi,
 	ContributorsSummary,
+	ReadMeContent,
 	LanguagesSummary,
 	MergeRequestsSummary,
 	MergeRequestsStatusSummary,
@@ -11,6 +12,7 @@ import {
 	ContributorData,
 	MergeRequest,
 	PipelineObject,
+	ReadMeData,
 } from '../components/types';
 
 export class GitlabCIClient implements GitlabCIApi {
@@ -128,6 +130,19 @@ export class GitlabCIClient implements GitlabCIApi {
 		};
 	}
 
+	async getReadMeContent(
+		projectID?: string,
+		readmePath?: string,
+	): Promise<ReadMeContent | undefined> {
+		const readMeContent = await this.callApi<ReadMeContent>(
+			'projects/' + projectID + '/repository/files/' + readmePath,
+			{ ref: 'master' },
+		);
+		return {
+			getReadMeContent: readMeContent!,
+		};
+	}
+	
 	async getLanguagesSummary(
 		projectID?: string,
 	): Promise<LanguagesSummary | undefined> {

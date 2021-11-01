@@ -3,6 +3,7 @@ import {
 	ContributorData,
 	MergeRequest,
 	PipelineObject,
+	ReadMeData,
 } from '../components/types';
 
 export interface PipelineSummary {
@@ -11,6 +12,10 @@ export interface PipelineSummary {
 
 export interface ContributorsSummary {
 	getContributorsData: ContributorData[];
+}
+
+export interface ReadMeContent {
+	getReadMeContent: ReadMeContent;
 }
 
 export interface MergeRequestsSummary {
@@ -35,6 +40,10 @@ export type GitlabCIApi = {
 	getContributorsSummary(
 		projectID: string,
 	): Promise<ContributorsSummary | undefined>;
+	getReadMeContent(
+		projectID: string,
+		readmePath: string,
+	): Promise<ReadMeContent | undefined>;
 	getMergeRequestsSummary(
 		projectID: string,
 	): Promise<MergeRequestsSummary | undefined>;
