@@ -70,7 +70,7 @@ export const LanguagesCard = ({}) => {
 	}
 
 	return value ? (
-		<InfoCard title='Languages'>
+		<InfoCard title='Languages' className={classes.infoCard}>
 			<div className={classes.barContainer}>
 				{Object.entries(value as Language).map((language, index: number) => {
 					barWidth = barWidth + language[1];

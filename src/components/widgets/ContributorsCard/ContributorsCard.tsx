@@ -44,7 +44,7 @@ export const ContributorsCard = ({}) => {
 		);
 	}
 	return (
-		<InfoCard title='Contributors'>
+		<InfoCard title='Contributors' className={classes.infoCard}>
 			<ContributorsList contributors={value || []} />
 		</InfoCard>
 	);

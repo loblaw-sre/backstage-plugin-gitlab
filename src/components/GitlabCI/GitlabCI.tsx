@@ -19,13 +19,9 @@ export const GitlabCI = () => (
       <Grid container spacing={3} direction="row" alignItems="stretch">
         <Grid item sm={12} md={6} lg={4}>
           <ContributorsCard />
-        </Grid>
-        <Grid item sm={12} md={6} lg={4}>
           <LanguagesCard />
-        </Grid>
-        <Grid item sm={12} md={6} lg={4}>
           <MergeRequestStats />
-        </Grid>
+      </Grid>
         <Grid item sm={12} md={6} lg={8}>
           <ReadMeCard  maxHeight={450}/>
         </Grid>
