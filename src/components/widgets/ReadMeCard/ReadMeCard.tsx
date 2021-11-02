@@ -71,16 +71,17 @@ export const ReadMeCard = (props: Props) => {
 	const { project_id } = gitlabAppData();
 	const { project_slug } = gitlabAppSlug();
 	const { hostname } = useEntityGitlabScmIntegration(entity);
+	let readMePath = "README.md";
+	let defaultBranch: string = "master";
+
 	const { value, loading, error } = useAsync(async (): Promise<
 		ReadMeData
 	> => {
 		let projectDetails: any = await GitlabCIAPI.getProjectDetails(project_slug);
 		let projectId = project_id ? project_id : projectDetails?.id;
-		let readMePath = "README.md";
-		const gitlabObj = await GitlabCIAPI.getReadMeContent(projectId, readMePath);
-		console.log(gitlabObj)
-		const data = gitlabObj?.getReadMeContent;
-		return data!;
+		defaultBranch = projectDetails?.default_branch;
+		const gitlabObj = await GitlabCIAPI.getReadMeContent(projectId, readMePath, defaultBranch);
+		return gitlabObj?.getReadMeContent!;
 	}, []);
 
 	if (loading) {
@@ -97,13 +98,13 @@ export const ReadMeCard = (props: Props) => {
 		  title="Read me"
 		  className={classes.infoCard}
 		  deepLink={{
-			link: `//${hostname}//${project_id}/`,
+			link: `//${hostname}/${project_slug}/-/blob/${defaultBranch}/${readMePath}`,
 			title: 'Read me',
 			onClick: e => {
 			  e.preventDefault();
 			  window.open(
-				`//${hostname}//${project_id}/`,
-			  );
+				`//${hostname}/${project_slug}/-/blob/${defaultBranch}/${readMePath}`,
+				);
 			},
 		  }}
 		>
@@ -118,7 +119,7 @@ export const ReadMeCard = (props: Props) => {
 				.replace(
 				  /\[([^\[\]]*)\]\((?!https?:\/\/)(.*?)(\.png|\.jpg|\.jpeg|\.gif|\.webp)(.*)\)/gim,
 				  '[$1]' +
-					`(//${hostname}/${project_slug}/raw/` +
+					`(//${hostname}/${project_slug}/-/raw/${defaultBranch}/` +
 					'$2$3$4)',
 				)
 				.replace(
@@ -128,8 +129,8 @@ export const ReadMeCard = (props: Props) => {
 				.replace(
 				  /\[([^\[\]]*)\]\((?!https?:\/\/)(.*?)(\.md)\)/gim,
 				  '[$1]' +
-					`(//${hostname}/${project_slug}/blob/` +
-					'$2$3)',
+				  `(//${hostname}/${project_slug}/-/blob/${defaultBranch}/` +
+				  '$2$3)',
 				)}
 			/>
 		  </div>

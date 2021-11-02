@@ -133,10 +133,11 @@ export class GitlabCIClient implements GitlabCIApi {
 	async getReadMeContent(
 		projectID?: string,
 		readmePath?: string,
+		defaultBranch?: string,
 	): Promise<ReadMeContent | undefined> {
 		const readMeContent = await this.callApi<ReadMeContent>(
 			'projects/' + projectID + '/repository/files/' + readmePath,
-			{ ref: 'master' },
+			{ ref: defaultBranch },
 		);
 		return {
 			getReadMeContent: readMeContent!,

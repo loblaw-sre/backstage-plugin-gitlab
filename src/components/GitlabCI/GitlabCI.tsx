@@ -16,7 +16,7 @@ import {
 export const GitlabCI = () => (
   <Page themeId="tool">
     <Content>
-      <Grid container spacing={6} direction="row" alignItems="stretch">
+      <Grid container spacing={3} direction="row" alignItems="stretch">
         <Grid item sm={12} md={6} lg={4}>
           <ContributorsCard />
         </Grid>
@@ -26,7 +26,7 @@ export const GitlabCI = () => (
         <Grid item sm={12} md={6} lg={4}>
           <MergeRequestStats />
         </Grid>
-        <Grid item sm={12} md={8} lg={8}>
+        <Grid item sm={12} md={6} lg={8}>
           <ReadMeCard  maxHeight={450}/>
         </Grid>
         <Grid item md={12}>

@@ -15,7 +15,7 @@ export interface ContributorsSummary {
 }
 
 export interface ReadMeContent {
-	getReadMeContent: ReadMeContent;
+	getReadMeContent: ReadMeData;
 }
 
 export interface MergeRequestsSummary {
@@ -43,6 +43,7 @@ export type GitlabCIApi = {
 	getReadMeContent(
 		projectID: string,
 		readmePath: string,
+		defaultBranch: string,
 	): Promise<ReadMeContent | undefined>;
 	getMergeRequestsSummary(
 		projectID: string,
