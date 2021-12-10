@@ -9,7 +9,7 @@ import {
 import { GitlabCIApiRef, GitlabCIClient } from './api';
 
 export const rootRouteRef = createRouteRef({
-  title: 'Gitlab',
+  id: 'Gitlab',
 });
 
 export const gitlabPlugin = createPlugin({
@@ -29,6 +29,7 @@ export const gitlabPlugin = createPlugin({
 
 export const EntityGitlabContent = gitlabPlugin.provide(
   createRoutableExtension({
+    name: "Gitlab",
     component: () =>
     import('./Router').then(m => m.Router),
     mountPoint: rootRouteRef,
