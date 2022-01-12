@@ -57,7 +57,7 @@
     "cross-fetch": "^3.0.6",
     "react-router": "6.0.0-beta.0",
     "react-router-dom": "6.0.0-beta.0",
-    "msw": "^0.29.0"
+    "msw": "^0.36.4"
   },
   "files": [
     "dist"
