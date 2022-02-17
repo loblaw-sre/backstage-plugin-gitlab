@@ -87,3 +87,13 @@ export const EntityGitlabPipelinesTable = gitlabPlugin.provide(
     },
   })
 );
+
+export const EntityGitlabReadmeCard = gitlabPlugin.provide(
+  createComponentExtension({
+    name: 'EntityGitlabReadmeCard',
+    component: {
+      lazy: () =>
+        import('./components/widgets/index').then((m) => m.ReadmeCard),
+    },
+  })
+);

@@ -11,6 +11,7 @@ import {
 	ContributorData,
 	MergeRequest,
 	PipelineObject,
+	RepositoryFileObject,
 } from '../components/types';
 
 export class GitlabCIClient implements GitlabCIApi {
@@ -160,5 +161,28 @@ export class GitlabCIClient implements GitlabCIApi {
 			{},
 		);
 		return retryBuild;
+	}
+
+	private static encodeFilename(filename: string) {
+		return filename.replace(".", "%2E")
+	}
+
+	async getFileContent(
+		projectId: string,
+		filename: string,
+		ref: string
+	): Promise<string | undefined> {
+		const encodedFilename = GitlabCIClient.encodeFilename(filename)
+		let fileObj: any = await this.callApi<RepositoryFileObject>(
+			`projects/${projectId}/repository/files/${encodedFilename}`,
+			{ref},
+		);
+
+		if (!fileObj?.content) {
+			return undefined;
+		}
+
+		const buff = new Buffer(fileObj?.content, 'base64');
+		return buff.toString('ascii');
 	}
 }
