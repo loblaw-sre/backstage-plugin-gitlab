@@ -1,13 +1,15 @@
-import { createPlugin, 
+import {
+  createPlugin,
   createRoutableExtension,
   createComponentExtension,
- } from '@backstage/core-plugin-api';
+} from '@backstage/core-plugin-api';
 
 import {
   configApiRef,
   createApiFactory,
   createRouteRef,
   discoveryApiRef,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
 import { GitlabCIApiRef, GitlabCIClient } from './api';
 
@@ -20,11 +22,16 @@ export const gitlabPlugin = createPlugin({
   apis: [
     createApiFactory({
       api: GitlabCIApiRef,
-      deps: { configApi: configApiRef, discoveryApi: discoveryApiRef },
-      factory: ({ configApi, discoveryApi }) =>
+      deps: {
+        configApi: configApiRef,
+        discoveryApi: discoveryApiRef,
+        identityApi: identityApiRef,
+      },
+      factory: ({ configApi, discoveryApi, identityApi }) =>
         new GitlabCIClient({
           discoveryApi,
           baseUrl: configApi.getOptionalString('gitlab.baseUrl'),
+          identityApi,
         }),
     }),
   ],
@@ -32,10 +39,9 @@ export const gitlabPlugin = createPlugin({
 
 export const EntityGitlabContent = gitlabPlugin.provide(
   createRoutableExtension({
-    component: () =>
-    import('./Router').then(m => m.Router),
+    component: () => import('./Router').then((m) => m.Router),
     mountPoint: rootRouteRef,
-  }),
+  })
 );
 
 export const EntityGitlabLanguageCard = gitlabPlugin.provide(
