@@ -6,7 +6,7 @@ import {
 	MergeRequestsSummary,
 	MergeRequestsStatusSummary,
 } from './GitlabCIApi';
-import { DiscoveryApi } from '@backstage/core-plugin-api';
+import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
 import {
 	ContributorData,
 	MergeRequest,
@@ -16,28 +16,34 @@ import {
 export class GitlabCIClient implements GitlabCIApi {
 	discoveryApi: DiscoveryApi;
 	baseUrl: string;
+	identityApi: IdentityApi;
 	constructor({
 		discoveryApi,
 		baseUrl = 'https://gitlab.com/',
+		identityApi,
 	}: {
 		discoveryApi: DiscoveryApi;
 		baseUrl?: string;
+		identityApi: IdentityApi;
 	}) {
 		this.discoveryApi = discoveryApi;
 		this.baseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+		this.identityApi = identityApi;
 	}
 
 	private async callApi<T>(
 		path: string,
-		query: { [key in string]: any },
+		query: { [key in string]: any }
 	): Promise<T | []> {
 		const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}/gitlabci`;
+		const { token } = await this.identityApi.getCredentials();
 		const response = await fetch(
 			`${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
+			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 		if (response.status === 200) {
 			return (await response.json()) as T;
-		}		
+		}
 		return [];
 	}
 
@@ -142,7 +148,7 @@ export class GitlabCIClient implements GitlabCIApi {
 
 	async getProjectDetails(projectSlug?: string): Promise<Object | undefined> {
 		let projectDetails: any;
-		if(projectSlug){
+		if (projectSlug) {
 			projectDetails = await this.callApi<Object>(
 				'projects/' + encodeURIComponent(projectSlug),
 				{},
