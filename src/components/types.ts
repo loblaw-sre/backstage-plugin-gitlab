@@ -34,4 +34,17 @@ export type PipelineObject = {
 	updated_at: string;
 };
 
+export type RepositoryFileObject = {
+	file_name: string;
+	file_path: string;
+	size: number,
+	encoding: string;
+	content: string;
+	content_sha256: string;
+	ref: string;
+	blob_id: string;
+	commit_id: string;
+	last_commit_id: string;
+};
+
 export type MergeRequestState = 'opened' | 'closed' | 'all';

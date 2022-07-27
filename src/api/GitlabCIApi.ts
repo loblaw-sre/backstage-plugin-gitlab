@@ -48,4 +48,5 @@ export type GitlabCIApi = {
 		pipelineID: string,
 	): Promise<Object | undefined>;
 	getProjectDetails(projectSlug: string): Promise<Object | undefined>;
+	getFileContent(projectId: string, filename: string, ref: string): Promise<string | undefined>;
 };
