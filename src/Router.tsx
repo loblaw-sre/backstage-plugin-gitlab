@@ -1,5 +1,4 @@
 import { Entity } from '@backstage/catalog-model';
-import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 import { MissingAnnotationEmptyState } from '@backstage/core-components';
 import { Button } from '@material-ui/core';
@@ -30,11 +29,7 @@ export const Router = (_props: Props) => {
 	if (
 		isGitlabAvailable(entity)
 	) {
-		return (
-			<Routes>
-				<Route path="/" element={<GitlabCI />} />
-			</Routes>
-		);
+		return <GitlabCI />;
 	}
 
 	return (
