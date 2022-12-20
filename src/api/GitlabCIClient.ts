@@ -36,6 +36,9 @@ export class GitlabCIClient implements GitlabCIApi {
 		const apiUrl = `${await this.discoveryApi.getBaseUrl('proxy')}/gitlabci`;
 		const response = await fetch(
 			`${apiUrl}/${path}?${new URLSearchParams(query).toString()}`,
+			{
+				credentials: 'include',
+			},
 		);
 		if (response.status === 200) {
 			return (await response.json()) as T;
