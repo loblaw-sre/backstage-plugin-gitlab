@@ -17,12 +17,11 @@ const LightTooltip = withStyles({
 })(Tooltip);
 
 export const Contributor = ({ contributor }: Props) => (
-    <LightTooltip
-    title={contributor.name}>
+  <LightTooltip title={contributor.name}>
     <Avatar
-        key={contributor.name}
-        alt={contributor.name}
-        src={contributor.avatar_url}
+      key={contributor.name}
+      alt={contributor.name}
+      src={contributor.avatar_url}
     />
-</LightTooltip>
+  </LightTooltip>
 );

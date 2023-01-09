@@ -8,6 +8,6 @@ createDevApp()
   .addPage({
     element: <EntityGitlabContent />,
     title: 'Root Page',
-    path: '/backstage-plugin-gitlab'
+    path: '/backstage-plugin-gitlab',
   })
   .render();
