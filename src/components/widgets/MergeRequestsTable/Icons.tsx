@@ -63,15 +63,15 @@ export const getStatusIconType = (row: MergeRequest) => {
           </span>
         </Tooltip>
       );
-      case row.state === 'locked':
-        return (
-          <Tooltip title="Open">
-            <span>
-              <StatusOpen />
-            </span>
-          </Tooltip>
-        );
-      case row.state === 'merged':
+    case row.state === 'locked':
+      return (
+        <Tooltip title="Open">
+          <span>
+            <StatusOpen />
+          </span>
+        </Tooltip>
+      );
+    case row.state === 'merged':
       return (
         <Tooltip title="Merged">
           <span>
